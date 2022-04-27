@@ -235,7 +235,7 @@ private:
         return result;
     }
 
-    string AfterTrim(string str, string symbol = ",") {
+    string BeforeTrim(string str, string symbol = ",") {
 
         size_t index = str.find(symbol);
 
@@ -245,15 +245,23 @@ private:
         return str.substr(0, index);
     }
 
+    string AfterTrim(string str, string symbol = "0") {
+
+        while(str[str.size() - 1] == '0')
+            str = str.substr(0, str.size() - 1);
+
+        return str;
+    }
+
     double BinToDec(string bin) {
 
-        double after;
-        double before = modf(atof(bin.c_str()), &after);
+        double before;
+        double after = modf(atof(bin.c_str()), &before);
 
-        string beforeStr = to_string(before);
+        string beforeStr = BeforeTrim(to_string(before));
       
         int size = beforeStr.size();
-        int pos = size -1;
+        int pos = size - 3; //с учетом запятой
         int item, beforeRes = 0, afterRes = 0;
 
         for (int i = 2; i < size; ++i, --pos) {
@@ -263,17 +271,12 @@ private:
 
         if (after != 0) {
 
-            string afterStr = to_string(after);
-            afterStr = AfterTrim(afterStr);
+            string afterStr = AfterTrim(to_string(after));
 
             size = beforeStr.size();
-            pos = size - 1;
+            pos = size - 3; //с учетом запятой
 
-            for (int i = 0; i < size; ++i, --pos) {
-
-                if (beforeStr[i] == ',')
-                    break;
-
+            for (int i = 2; i < size; ++i, --pos) {
                 item = atoi(string({ (char) afterStr[i] }).c_str());
                 afterRes += item * (1 / pow(2, pos));
             }
