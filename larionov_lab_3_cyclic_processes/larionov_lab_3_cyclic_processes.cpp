@@ -184,9 +184,11 @@ class Task36 {
 private:
     string inputBin(string text) {
 
-        string result = "";
+        string item = "", result = "";
         bool isCorrect = true;
         int size;
+
+        bool isPoint = false;
 
         while (true) {
 
@@ -196,13 +198,35 @@ private:
             result = GetLine();
             size = strlen(result.c_str());
 
-            for (int i = 0; i < size; ++i) {
+            if (size != 0 && result[0] != ',' && result[size - 1] != ',') {
 
-            }
+                for (int i = 0; i < size; ++i) {
+
+                    item = result[i];
+
+                    if (!isPoint && item == ",") {
+                        isPoint = true;
+                        continue;
+                    }
+
+                    if (isPoint && item == ",") {
+                        isCorrect = false;
+                        break;
+                    }
+
+                    if (item != "0" && item != "1") {
+                        isCorrect = false;
+                        break;
+                    }
+                }
+        }
+        else
+            isCorrect = false;
 
             if (!isCorrect) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << result + " - не число!" << endl << endl;
+                cout << endl << result + " - не двоичное число!" << endl << endl;
+                isCorrect = true;
             }
             else
                 break;
@@ -229,6 +253,11 @@ public:
         SetConsoleTextAttribute(handleConsole, White);
 
         cout << "Вычислить десятичное представление двоичного числа" << endl << endl;
+
+        string binStr = inputBin("Введите число в двоичной системе счисления: ");
+
+        SetConsoleTextAttribute(handleConsole, Green);
+        cout << binStr << endl << endl;
 
 
         
