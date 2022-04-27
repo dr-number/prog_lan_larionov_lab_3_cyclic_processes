@@ -235,6 +235,16 @@ private:
         return result;
     }
 
+    string AfterTrim(string str, string symbol = ",") {
+
+        size_t index = str.find(symbol);
+
+        if (index == str.npos)
+            return str;
+
+        return str.substr(0, index);
+    }
+
     double BinToDec(string bin) {
 
         double after;
@@ -254,6 +264,7 @@ private:
         if (after != 0) {
 
             string afterStr = to_string(after);
+            afterStr = AfterTrim(afterStr);
 
             size = beforeStr.size();
             pos = size - 1;
