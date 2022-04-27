@@ -184,13 +184,14 @@ class Task36 {
 private:
     string inputBin(string text) {
 
-        string item = "", result = "";
-        bool isCorrect = true;
         int size;
-
-        bool isPoint = false;
+        string item = "", result = "";
+        bool isPoint = false, isCorrect = true;
 
         while (true) {
+
+            isCorrect = true;
+            isPoint = false;
 
             SetConsoleTextAttribute(handleConsole, White);
             cout << text;
@@ -226,7 +227,6 @@ private:
             if (!isCorrect) {
                 SetConsoleTextAttribute(handleConsole, Red);
                 cout << endl << result + " - не двоичное число!" << endl << endl;
-                isCorrect = true;
             }
             else
                 break;
