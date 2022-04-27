@@ -180,6 +180,62 @@ public:
 
 };
 
+class Task36 {
+private:
+    string inputBin(string text) {
+
+        string result = "";
+        bool isCorrect = true;
+        int size;
+
+        while (true) {
+
+            SetConsoleTextAttribute(handleConsole, White);
+            cout << text;
+
+            result = GetLine();
+            size = strlen(result.c_str());
+
+            for (int i = 0; i < size; ++i) {
+
+            }
+
+            if (!isCorrect) {
+                SetConsoleTextAttribute(handleConsole, Red);
+                cout << endl << result + " - не число!" << endl << endl;
+            }
+            else
+                break;
+        }
+
+        return result;
+    }
+
+    double BinToDec(string bin) {
+
+        double result = 0;
+        int pos = 0;
+        int size = bin.size();
+
+        for (int i = size - 1; i >= 0; --i, ++pos)
+            result += bin[i] == '0' ? 0 : 1 << pos;
+
+        return result;
+    }
+
+public: 
+    void Init() {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+        cout << "Вычислить десятичное представление двоичного числа" << endl << endl;
+
+
+        
+    }
+
+};
+
 
 int main()
 {
@@ -200,7 +256,9 @@ int main()
 
         cout << "\nВведите номер задачи" << endl;
         cout << "6)	Каждая деталь должна последовательно пройти обработку на каждом из 3 станков." << endl;
-        cout << "Вычислять, сколько времени займет обработка всех деталей." << endl;
+        cout << "Вычислять, сколько времени займет обработка всех деталей." << endl << endl;
+
+        cout << "36) Вычислить десятичное представление двоичного числа" << endl << endl;
 
 
         cout << endl << "Для выхода введите \"0\": ";
@@ -214,11 +272,11 @@ int main()
         else if (select == "16") {
             Task16 task16 = *new Task16();
             task16.Init();
-        }
+        }*/
         else if (select == "36") {
             Task36 task36 = *new Task36();
             task36.Init();
-        }
+        }/*
         else if (select == "46") {
             Task46 task46 = *new Task46();
             task46.Init();
