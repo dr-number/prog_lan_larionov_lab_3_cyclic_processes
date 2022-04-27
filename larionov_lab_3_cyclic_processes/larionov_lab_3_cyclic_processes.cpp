@@ -237,14 +237,38 @@ private:
 
     double BinToDec(string bin) {
 
-        double result = 0;
-        int pos = 0;
-        int size = bin.size();
+        double after;
+        double before = modf(atof(bin.c_str()), &after);
 
-        for (int i = size - 1; i >= 0; --i, ++pos)
-            result += bin[i] == '0' ? 0 : 1 << pos;
+        string beforeStr = to_string(before);
+      
+        int size = beforeStr.size();
+        int pos = size -1;
+        int item, beforeRes = 0, afterRes = 0;
 
-        return result;
+        for (int i = 2; i < size; ++i, --pos) {
+            item = atoi(string({ (char) beforeStr[i]}).c_str());
+            beforeRes += item * pow(2, pos);
+        }
+
+        if (after != 0) {
+
+            string afterStr = to_string(after);
+
+            size = beforeStr.size();
+            pos = size - 1;
+
+            for (int i = 0; i < size; ++i, --pos) {
+
+                if (beforeStr[i] == ',')
+                    break;
+
+                item = atoi(string({ (char) afterStr[i] }).c_str());
+                afterRes += item * (1 / pow(2, pos));
+            }
+        }
+
+        return beforeRes + afterRes;
     }
 
 public: 
@@ -253,11 +277,10 @@ public:
         SetConsoleTextAttribute(handleConsole, White);
 
         cout << "¬ычислить дес€тичное представление двоичного числа" << endl << endl;
-
         string binStr = inputBin("¬ведите число в двоичной системе счислени€: ");
 
         SetConsoleTextAttribute(handleConsole, Green);
-        cout << binStr << endl << endl;
+        cout << "¬ дес€тичной системе счислени€: " << BinToDec(binStr) << endl << endl;
 
 
         
