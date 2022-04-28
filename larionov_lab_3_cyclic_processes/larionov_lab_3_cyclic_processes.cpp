@@ -261,7 +261,7 @@ private:
         string beforeStr = BeforeTrim(to_string(before));
       
         int size = beforeStr.size();
-        int pos = size - 1; //с учетом запятой
+        int pos = size - 1;
         double item, beforeRes = 0, afterRes = 0;
 
         for (int i = 0; i < size; ++i, --pos) {
@@ -274,7 +274,7 @@ private:
 
             string afterStr = AfterTrim(to_string(after));
 
-            size = beforeStr.size();
+            size = afterStr.size();
             pos = 1; //с учетом запятой
 
             for (int i = 2; i < size; ++i, ++pos) {
