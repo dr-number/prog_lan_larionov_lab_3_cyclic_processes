@@ -341,12 +341,12 @@ private:
 
     bool IsSuperPrimeNumber(int number){
 
-        /*
         bool isPrime1 = IsPrime(number);
-        bool isPrime2 = IsPrime(GetReverse(number));
-        return isPrime1 && isPrime2;
-        */
+        int reverse = GetReverse(number);
 
+        bool isPrime2 = IsPrime(reverse);
+        return isPrime1 && isPrime2;
+        
         return IsPrime(number) && IsPrime(GetReverse(number));
     }
 
@@ -372,26 +372,34 @@ public:
         bool isInOrderData = myQuestion.isQuestion(myQuestion.QUESTION_IN_ORDER_DATA);
         
         int number = 0;
+        int countSuperPrimeNumber = 0;
 
         for (int i = 0; i < count; ++i) {
 
             if (isInOrderData)
                 number = i;
             else 
-                number = myInput.InputIntData("¬ведите целое число: ", MIN_NUMBER, MAX_NUMBER);
+                number = myInput.InputIntData("¬ведите целое число (" + to_string(i + 1) + " из " + to_string(count) + "): ", MIN_NUMBER, MAX_NUMBER);
 
             if (IsSuperPrimeNumber(number)) {
                 SetConsoleTextAttribute(handleConsole, Green);
-                cout << number << " - сверхпростое число" << endl; 
+                cout << number << " - сверхпростое число" << endl;
+                ++countSuperPrimeNumber;
             }
-            else {
-                SetConsoleTextAttribute(handleConsole, White);
+            else if(!isInOrderData) {
+                SetConsoleTextAttribute(handleConsole, Red);
+                cout << number << " - не сверхпростое число" << endl;
+            }
 
-                if(!isInOrderData)
-                    cout << number << endl;
-            }
+            if (!isInOrderData)
+                cout << endl;
 
         }
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << countSuperPrimeNumber << " числел из " << count << " оказались простыми" << endl;
+
+        SetConsoleTextAttribute(handleConsole, White);
 
     }
 };
