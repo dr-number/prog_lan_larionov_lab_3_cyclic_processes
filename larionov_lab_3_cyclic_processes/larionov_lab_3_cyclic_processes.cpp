@@ -261,12 +261,13 @@ private:
         string beforeStr = BeforeTrim(to_string(before));
       
         int size = beforeStr.size();
-        int pos = size - 3; //с учетом запятой
-        int item, beforeRes = 0, afterRes = 0;
+        int pos = size - 1; //с учетом запятой
+        double item, beforeRes = 0, afterRes = 0;
 
-        for (int i = 2; i < size; ++i, --pos) {
+        for (int i = 0; i < size; ++i, --pos) {
             item = atoi(string({ (char) beforeStr[i]}).c_str());
-            beforeRes += item * pow(2, pos);
+            item = item * pow(2, pos);
+            beforeRes += item;
         }
 
         if (after != 0) {
@@ -274,11 +275,12 @@ private:
             string afterStr = AfterTrim(to_string(after));
 
             size = beforeStr.size();
-            pos = size - 3; //с учетом запятой
+            pos = 1; //с учетом запятой
 
-            for (int i = 2; i < size; ++i, --pos) {
+            for (int i = 2; i < size; ++i, ++pos) {
                 item = atoi(string({ (char) afterStr[i] }).c_str());
-                afterRes += item * (1 / pow(2, pos));
+                item = item * (1 / pow(2, pos));
+                afterRes += item;
             }
         }
 
