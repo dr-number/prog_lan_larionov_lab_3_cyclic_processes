@@ -96,20 +96,26 @@ public:
 
 };
 
+class MyQuestion {
+
+public:
+    const string QUESTION_RANDOM_DATA = "Сгенерировать данные случайным образом [y/n]?";
+    const string QUESTION_IN_ORDER_DATA = "Взять числа по порядку [y/n]?";
+
+    bool isQuestion(string textQuestion) {
+
+        cout << textQuestion << endl;
+        string answer = GetLine();
+
+        transform(answer.begin(), answer.end(), answer.begin(), tolower);
+        return answer == "y" || answer == "";
+    }
+};
+
 class MyRandom {
 
 public:
     double MIN_RANDOM = 10, MAX_RANDOM = 1000;
-
-    bool isRandomData() {
-        cout << "Сгенерировать данные случайным образом [y/n]?" << endl;
-
-        string answer = GetLine();
-
-        transform(answer.begin(), answer.end(), answer.begin(), tolower);
-
-        return answer == "y" || answer == "";
-    }
 
     double GetRandom(int min, int max) {
         return rand() % (max - min) - min;
@@ -138,12 +144,13 @@ public:
         double timeDetalInAllMachines, timeInAllMachines = 0;
 
         MyRandom myRandom = *new MyRandom();
+        MyQuestion myQuestion = *new MyQuestion();
         MyInput myInput = *new MyInput();
 
         
         int countDetals = myInput.InputIntData("Введите колличество деталей которое нужно обработать: ", MIN_DETALS, MAX_DETALS);
 
-        bool isRandomData = myRandom.isRandomData();
+        bool isRandomData = myQuestion.isQuestion(myQuestion.QUESTION_RANDOM_DATA);
 
         for (int i = 0; i < countDetals; ++i) {
 
@@ -275,7 +282,7 @@ private:
             string afterStr = AfterTrim(to_string(after));
 
             size = afterStr.size();
-            pos = 1; //с учетом запятой
+            pos = 1;
 
             for (int i = 2; i < size; ++i, ++pos) {
                 item = atoi(string({ (char) afterStr[i] }).c_str());
@@ -298,10 +305,95 @@ public:
         SetConsoleTextAttribute(handleConsole, Green);
         cout << "В десятичной системе счисления: " << BinToDec(binStr) << endl << endl;
 
+    }
+};
 
-        
+class Task46 {
+private:
+    bool IsPrime(int n)
+    {
+        if (n == 0 || n == 1) 
+            return false;
+
+        for (int i = 2; i <= n / 2; ++i) {
+            if (n % i == 0) {
+                return false;
+                break;
+            }
+        }
+
+        return true;
     }
 
+    int GetReverse(int n) {
+        
+        string result = "";
+        string str = to_string(n);
+
+        int size = str.size();
+
+        for (int i = size - 1; i >= 0; --i)
+            result += str[i];
+
+        return atoi(result.c_str());
+    }
+
+
+    bool IsSuperPrimeNumber(int number){
+
+        /*
+        bool isPrime1 = IsPrime(number);
+        bool isPrime2 = IsPrime(GetReverse(number));
+        return isPrime1 && isPrime2;
+        */
+
+        return IsPrime(number) && IsPrime(GetReverse(number));
+    }
+
+public:
+    void Init() {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+        cout << "Вычислить сверхпростые числа" << endl << endl;
+
+        int MIN_COUNT = 1;
+        int MAX_COUNT = 1000;
+
+        int MIN_NUMBER = 1;
+        int MAX_NUMBER = 5000;
+
+        MyInput myInput = *new MyInput();
+        int count = myInput.InputIntData("Сколько чисел нужно обработать: ", MIN_COUNT, MAX_COUNT);
+
+        MyRandom myRandom = *new MyRandom();
+        MyQuestion myQuestion = *new MyQuestion();
+
+        bool isInOrderData = myQuestion.isQuestion(myQuestion.QUESTION_IN_ORDER_DATA);
+        
+        int number = 0;
+
+        for (int i = 0; i < count; ++i) {
+
+            if (isInOrderData)
+                number = i;
+            else 
+                number = myInput.InputIntData("Введите целое число: ", MIN_NUMBER, MAX_NUMBER);
+
+            if (IsSuperPrimeNumber(number)) {
+                SetConsoleTextAttribute(handleConsole, Green);
+                cout << number << " - сверхпростое число" << endl; 
+            }
+            else {
+                SetConsoleTextAttribute(handleConsole, White);
+
+                if(!isInOrderData)
+                    cout << number << endl;
+            }
+
+        }
+
+    }
 };
 
 
@@ -328,6 +420,8 @@ int main()
 
         cout << "36) Вычислить десятичное представление двоичного числа" << endl << endl;
 
+        cout << "46) Вычислить сверхпростые числа" << endl << endl;
+
 
         cout << endl << "Для выхода введите \"0\": ";
 
@@ -344,11 +438,11 @@ int main()
         else if (select == "36") {
             Task36 task36 = *new Task36();
             task36.Init();
-        }/*
+        }
         else if (select == "46") {
             Task46 task46 = *new Task46();
             task46.Init();
-        }*/
+        }
         else if (select == "0") {
             isGo = false;
         }
