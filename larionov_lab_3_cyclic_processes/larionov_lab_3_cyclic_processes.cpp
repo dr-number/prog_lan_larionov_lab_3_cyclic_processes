@@ -340,13 +340,6 @@ private:
 
 
     bool IsSuperPrimeNumber(int number){
-
-        bool isPrime1 = IsPrime(number);
-        int reverse = GetReverse(number);
-
-        bool isPrime2 = IsPrime(reverse);
-        return isPrime1 && isPrime2;
-        
         return IsPrime(number) && IsPrime(GetReverse(number));
     }
 
@@ -358,7 +351,7 @@ public:
         cout << "Вычислить сверхпростые числа" << endl << endl;
 
         int MIN_COUNT = 1;
-        int MAX_COUNT = 1000;
+        int MAX_COUNT = 10000;
 
         int MIN_NUMBER = 1;
         int MAX_NUMBER = 5000;
