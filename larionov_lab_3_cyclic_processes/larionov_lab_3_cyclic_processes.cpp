@@ -162,8 +162,8 @@ public:
 class MyQuestion {
 
 public:
-    static const string QUESTION_RANDOM_DATA = "Сгенерировать данные случайным образом [y/n]?";
-    static const string QUESTION_IN_ORDER_DATA = "Взять числа по порядку [y/n]?";
+    const string QUESTION_RANDOM_DATA = "Сгенерировать данные случайным образом [y/n]?";
+    const string QUESTION_IN_ORDER_DATA = "Взять числа по порядку [y/n]?";
 
     bool isQuestion(string textQuestion) {
 
@@ -223,7 +223,7 @@ public:
         
         int countDetals = myInput.InputIntData("Введите колличество деталей которое нужно обработать: ", MIN_DETALS, MAX_DETALS);
 
-        bool isRandomData = myQuestion.isQuestion(MyQuestion::QUESTION_RANDOM_DATA);
+        bool isRandomData = myQuestion.isQuestion(myQuestion.QUESTION_RANDOM_DATA);
 
         for (int i = 0; i < countDetals; ++i) {
 
@@ -236,9 +236,9 @@ public:
                 timeInMachine3 = myRandom.GetRandom(MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
             }
             else {
-                timeInMachine1 = myInput.InputData("Введите время обработки детали на станке №1 (в секундах): ");
-                timeInMachine2 = myInput.InputData("Введите время обработки детали на станке №2 (в секундах): ");
-                timeInMachine3 = myInput.InputData("Введите время обработки детали на станке №3 (в секундах): ");
+                timeInMachine1 = myInput.InputData("Введите время обработки детали на станке №1 (в секундах): ", MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
+                timeInMachine2 = myInput.InputData("Введите время обработки детали на станке №2 (в секундах): ", MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
+                timeInMachine3 = myInput.InputData("Введите время обработки детали на станке №3 (в секундах): ", MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
             }
 
             SetConsoleTextAttribute(handleConsole, Yellow);
@@ -335,6 +335,8 @@ private:
 
     double BinToDec(string bin) {
 
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
         double before;
         double after = modf(atof(bin.c_str()), &before);
 
@@ -344,23 +346,68 @@ private:
         int pos = size - 1;
         double item, beforeRes = 0, afterRes = 0;
 
+        if (after != 0) {
+            SetConsoleTextAttribute(handleConsole, White);
+            cout << "\n\nЦелая часть: ";
+        }
+
         for (int i = 0; i < size; ++i, --pos) {
             item = atoi(string({ (char) beforeStr[i]}).c_str());
 
+            SetConsoleTextAttribute(handleConsole, Yellow);
             cout << item << " * 2^" << pos;
 
-            if (i != size - 1)
+            if (i != size - 1) {
+                SetConsoleTextAttribute(handleConsole, Green);
                 cout << " + ";
-            else
-                cout << " = ";
+            }
+            else {
+                SetConsoleTextAttribute(handleConsole, Blue);
+                cout << " =\n";
+
+                int pos2 = size - 1;
+                double item2;
+                int tmp;
+
+                for (int i = 0; i < size; ++i, --pos2) {
+                    item2 = atoi(string({ (char)beforeStr[i] }).c_str());
+
+                    tmp = item2 * pow(2, pos2);
+
+                    if (tmp != 0) {
+
+                        if (i != 0) {
+                            SetConsoleTextAttribute(handleConsole, Green);
+                            cout << " + ";
+                        }
+
+                        SetConsoleTextAttribute(handleConsole, Yellow);
+                        cout << tmp;
+                        
+                    }
+
+                    if (i == size - 1) {
+                        SetConsoleTextAttribute(handleConsole, Blue);
+                        cout << " = ";
+                    }
+                    
+                }
+
+            }
 
             item = item * pow(2, pos);
             beforeRes += item;
         }
 
+        SetConsoleTextAttribute(handleConsole, Green);
         cout << beforeRes;
 
+        double result = beforeRes;
+
         if (after != 0) {
+
+            SetConsoleTextAttribute(handleConsole, White);
+            cout << "\n\nДробная часть: ";
 
             string afterStr = AfterTrim(to_string(after));
 
@@ -370,22 +417,66 @@ private:
             for (int i = 2; i < size; ++i, ++pos) {
                 item = atoi(string({ (char) afterStr[i] }).c_str());
 
+                SetConsoleTextAttribute(handleConsole, Yellow);
                 cout << item << " * (1 / (2^" << pos << "))";
 
-                if (i != size - 1)
+                if (i != size - 1) {
+                    SetConsoleTextAttribute(handleConsole, Green);
                     cout << " + ";
-                else
+                }
+                else {
+                    SetConsoleTextAttribute(handleConsole, Blue);
                     cout << " = ";
+
+                    for (int i = 2; i < size; ++i, ++pos) {
+                        item = atoi(string({ (char)afterStr[i] }).c_str());
+
+                        SetConsoleTextAttribute(handleConsole, Yellow);
+                        cout << item * (1 / pow(2, pos));
+
+                        if (i != size - 1) {
+                            SetConsoleTextAttribute(handleConsole, Green);
+                            cout << " + ";
+                        }
+                        else {
+                            SetConsoleTextAttribute(handleConsole, Blue);
+                            cout << " = ";
+
+                            SetConsoleTextAttribute(handleConsole, Green);
+                            cout << afterRes << endl;
+                        }
+                    }
+                }
 
                 item = item * (1 / pow(2, pos));
                 afterRes += item;
             }
 
-            cout << beforeRes << " + " << afterRes;
+            result = beforeRes + afterRes;
+
+            if (after != 0) {
+
+                SetConsoleTextAttribute(handleConsole, White);
+                cout << "\nИтоговый результат: ";
+
+                cout << beforeRes;
+
+                SetConsoleTextAttribute(handleConsole, Yellow);
+                cout << " + ";
+
+                SetConsoleTextAttribute(handleConsole, Green);
+                cout << afterRes;
+
+                SetConsoleTextAttribute(handleConsole, Blue);
+                cout << " = ";
+
+                SetConsoleTextAttribute(handleConsole, Green);
+                cout << result;
+            }
         }
 
         cout << endl;
-        return beforeRes + afterRes;
+        return result;
     }
 
 public: 
@@ -397,13 +488,19 @@ public:
         string binStr = inputBin("Введите число в двоичной системе счисления: ");
 
         SetConsoleTextAttribute(handleConsole, Green);
-        cout << "В десятичной системе счисления: " << BinToDec(binStr) << endl << endl;
+        cout << "\nВ десятичной системе счисления: " << BinToDec(binStr) << endl << endl;
 
     }
 };
 
 class Task46 {
 private:
+    const int MIN_COUNT = 1;
+    const int MAX_COUNT = 10000;
+
+    const int MIN_NUMBER = 1;
+    const int MAX_NUMBER = 5000;
+
     bool IsPrime(int n)
     {
         if (n == 0 || n == 1) 
@@ -443,12 +540,6 @@ public:
         SetConsoleTextAttribute(handleConsole, White);
 
         cout << "Вычислить сверхпростые числа" << endl << endl;
-
-        int MIN_COUNT = 1;
-        int MAX_COUNT = 10000;
-
-        int MIN_NUMBER = 1;
-        int MAX_NUMBER = 5000;
 
         MyInput myInput = *new MyInput();
         int count = myInput.InputIntData("Сколько чисел нужно обработать: ", MIN_COUNT, MAX_COUNT);
