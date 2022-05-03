@@ -601,12 +601,6 @@ private:
     const int DEFAULT_N = 30;
 
     double GetPart(int n, bool isPrint) {
-        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-
-        SetConsoleTextAttribute(handleConsole, Green);
-        cout << "a(" << n << ") = ";
-
-        SetConsoleTextAttribute(handleConsole, White);
 
         double E = exp(n);
         double P = pow(2, n);
@@ -614,6 +608,13 @@ private:
         double result = 1 / division;
 
         if (isPrint) {
+            HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+            SetConsoleTextAttribute(handleConsole, Green);
+            cout << "a(" << n << ") = ";
+
+            SetConsoleTextAttribute(handleConsole, White);
+
             cout << " 1 / (e^" << n << " * 2^" << n << ") = ";
             cout << " 1 / (" << E << " * " << P << ") = ";
             cout << " 1 / " << division << " = ";
@@ -646,7 +647,7 @@ public:
         cout << "\nПервый элемент последовательности: " << endl;
 
         double part1 = GetPart(1, isShowCalc);
-        SetConsoleTextAttribute(handleConsole, Green);
+        SetConsoleTextAttribute(handleConsole, Blue);
 
         cout << part1 << endl << endl;
 
@@ -655,8 +656,11 @@ public:
         for (int i = 2; i <= n; ++i) {
 
             item = GetPart(i, isShowCalc);
-            SetConsoleTextAttribute(handleConsole, Green);
-            cout << item << endl;
+
+            if (isShowCalc) {
+                SetConsoleTextAttribute(handleConsole, Green);
+                cout << item << endl;
+            }
 
             SetConsoleTextAttribute(handleConsole, Yellow);
             cout << "Разность: ";
@@ -664,10 +668,10 @@ public:
             SetConsoleTextAttribute(handleConsole, Blue);
             cout << part1;
             
-            SetConsoleTextAttribute(handleConsole, White);
+            SetConsoleTextAttribute(handleConsole, Green);
             cout << " - " << item << " = ";
 
-            SetConsoleTextAttribute(handleConsole, Green);
+            SetConsoleTextAttribute(handleConsole, White);
             cout << part1 - item << endl << endl;
         }
     }
