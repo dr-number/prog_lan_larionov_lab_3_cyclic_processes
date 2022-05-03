@@ -164,6 +164,7 @@ class MyQuestion {
 public:
     const string QUESTION_RANDOM_DATA = "Сгенерировать данные случайным образом [y/n]?";
     const string QUESTION_IN_ORDER_DATA = "Взять числа по порядку [y/n]?";
+    const string QUESTION_SHOW_CALC = "Показывать ход вычислений [y/n]?";
 
     bool isQuestion(string textQuestion) {
 
@@ -593,6 +594,84 @@ public:
     }
 };
 
+class Task56 {
+private:
+    const int MIN_N = 10;
+    const int MAX_N = 10000;
+    const int DEFAULT_N = 30;
+
+    double GetPart(int n, bool isPrint) {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+        SetConsoleTextAttribute(handleConsole, Green);
+        cout << "a(" << n << ") = ";
+
+        SetConsoleTextAttribute(handleConsole, White);
+
+        double E = exp(n);
+        double P = pow(2, n);
+        double division = E * P;
+        double result = 1 / division;
+
+        if (isPrint) {
+            cout << " 1 / (e^" << n << " * 2^" << n << ") = ";
+            cout << " 1 / (" << E << " * " << P << ") = ";
+            cout << " 1 / " << division << " = ";
+        }
+
+        return result;
+    }
+
+public:
+    void Init() {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+        cout << "Вычислить разности между первым и остальными элементами исходной последовательности" << endl << endl;
+
+        cout << "a(n) = 1 / (e^n * 2^n)" << endl;
+
+        MyQuestion myQuestion = *new MyQuestion();
+
+        int n;
+
+        bool isShowCalc = myQuestion.isQuestion(myQuestion.QUESTION_SHOW_CALC);
+        
+       
+        MyInput myInput = *new MyInput();
+        n = myInput.InputIntData("Введите количество элементов последовательности (n) [по умолчанию " + to_string(DEFAULT_N) + "]: ", MIN_N, MAX_N, DEFAULT_N);
+        
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "\nПервый элемент последовательности: " << endl;
+
+        double part1 = GetPart(1, isShowCalc);
+        SetConsoleTextAttribute(handleConsole, Green);
+
+        cout << part1 << endl << endl;
+
+        double item;
+
+        for (int i = 2; i <= n; ++i) {
+
+            item = GetPart(i, isShowCalc);
+            SetConsoleTextAttribute(handleConsole, Green);
+            cout << item << endl;
+
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            cout << "Разность: ";
+
+            SetConsoleTextAttribute(handleConsole, Blue);
+            cout << part1;
+            
+            SetConsoleTextAttribute(handleConsole, White);
+            cout << " - " << item << " = ";
+
+            SetConsoleTextAttribute(handleConsole, Green);
+            cout << part1 - item << endl << endl;
+        }
+    }
+};
 
 int main()
 {
@@ -619,6 +698,7 @@ int main()
 
         cout << "46) Вычислить сверхпростые числа" << endl << endl;
 
+        cout << "56) Вычислить разности между первым и остальными элементами исходной последовательности" << endl << endl;
 
         cout << endl << "Для выхода введите \"0\": ";
 
@@ -639,6 +719,10 @@ int main()
         else if (select == "46") {
             Task46 task46 = *new Task46();
             task46.Init();
+        }
+        else if (select == "56") {
+            Task56 task56 = *new Task56();
+            task56.Init();
         }
         else if (select == "0") {
             isGo = false;
