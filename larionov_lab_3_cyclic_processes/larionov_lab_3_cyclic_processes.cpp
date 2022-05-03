@@ -335,10 +335,11 @@ private:
 
     double BinToDec(string bin) {
 
-        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-
         double before;
         double after = modf(atof(bin.c_str()), &before);
+
+        if (after == 0 && before == 0)
+            return 0;
 
         string beforeStr = BeforeTrim(to_string(before));
       
@@ -346,61 +347,69 @@ private:
         int pos = size - 1;
         double item, beforeRes = 0, afterRes = 0;
 
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
         if (after != 0) {
             SetConsoleTextAttribute(handleConsole, White);
             cout << "\n\nЦелая часть: ";
         }
 
-        for (int i = 0; i < size; ++i, --pos) {
-            item = atoi(string({ (char) beforeStr[i]}).c_str());
+        if (before != 0) {
+            for (int i = 0; i < size; ++i, --pos) {
+                item = atoi(string({ (char)beforeStr[i] }).c_str());
 
-            SetConsoleTextAttribute(handleConsole, Yellow);
-            cout << item << " * 2^" << pos;
+                SetConsoleTextAttribute(handleConsole, Yellow);
+                cout << item << " * 2^" << pos;
 
-            if (i != size - 1) {
-                SetConsoleTextAttribute(handleConsole, Green);
-                cout << " + ";
-            }
-            else {
-                SetConsoleTextAttribute(handleConsole, Blue);
-                cout << " =\n";
+                if (i != size - 1) {
+                    SetConsoleTextAttribute(handleConsole, Green);
+                    cout << " + ";
+                }
+                else {
+                    SetConsoleTextAttribute(handleConsole, Blue);
+                    cout << " =\n";
 
-                int pos2 = size - 1;
-                double item2;
-                int tmp;
+                    int pos2 = size - 1;
+                    double item2;
+                    int tmp;
 
-                for (int i = 0; i < size; ++i, --pos2) {
-                    item2 = atoi(string({ (char)beforeStr[i] }).c_str());
+                    for (int i = 0; i < size; ++i, --pos2) {
+                        item2 = atoi(string({ (char)beforeStr[i] }).c_str());
 
-                    tmp = item2 * pow(2, pos2);
+                        tmp = item2 * pow(2, pos2);
 
-                    if (tmp != 0) {
+                        if (tmp != 0) {
 
-                        if (i != 0) {
-                            SetConsoleTextAttribute(handleConsole, Green);
-                            cout << " + ";
+                            if (i != 0) {
+                                SetConsoleTextAttribute(handleConsole, Green);
+                                cout << " + ";
+                            }
+
+                            SetConsoleTextAttribute(handleConsole, Yellow);
+                            cout << tmp;
+
                         }
 
-                        SetConsoleTextAttribute(handleConsole, Yellow);
-                        cout << tmp;
-                        
+                        if (i == size - 1) {
+                            SetConsoleTextAttribute(handleConsole, Blue);
+                            cout << " = ";
+                        }
+
                     }
 
-                    if (i == size - 1) {
-                        SetConsoleTextAttribute(handleConsole, Blue);
-                        cout << " = ";
-                    }
-                    
                 }
 
+                item = item * pow(2, pos);
+                beforeRes += item;
             }
 
-            item = item * pow(2, pos);
-            beforeRes += item;
+            SetConsoleTextAttribute(handleConsole, Green);
+            cout << beforeRes;
         }
-
-        SetConsoleTextAttribute(handleConsole, Green);
-        cout << beforeRes;
+        else {
+            SetConsoleTextAttribute(handleConsole, Green);
+            cout << 0;
+        }
 
         double result = beforeRes;
 
@@ -428,11 +437,14 @@ private:
                     SetConsoleTextAttribute(handleConsole, Blue);
                     cout << " = ";
 
-                    for (int i = 2; i < size; ++i, ++pos) {
-                        item = atoi(string({ (char)afterStr[i] }).c_str());
+                    double item2;
+                    int pos2 = 1;
+
+                    for (int i = 2; i < size; ++i, ++pos2) {
+                        item2 = atoi(string({ (char)afterStr[i] }).c_str());
 
                         SetConsoleTextAttribute(handleConsole, Yellow);
-                        cout << item * (1 / pow(2, pos));
+                        cout << item2 * (1 / pow(2, pos2));
 
                         if (i != size - 1) {
                             SetConsoleTextAttribute(handleConsole, Green);
@@ -447,9 +459,6 @@ private:
 
                 item = item * (1 / pow(2, pos));
 
-               // SetConsoleTextAttribute(handleConsole, Green);
-               // cout << item << endl;
-
                 afterRes += item;
             }
 
@@ -458,7 +467,7 @@ private:
             if (after != 0) {
 
                 SetConsoleTextAttribute(handleConsole, White);
-                cout << "\nИтоговый результат: ";
+                cout << "\n\nИтоговый результат: ";
 
                 SetConsoleTextAttribute(handleConsole, Green);
                 cout << beforeRes;
