@@ -418,7 +418,7 @@ private:
                 item = atoi(string({ (char) afterStr[i] }).c_str());
 
                 SetConsoleTextAttribute(handleConsole, Yellow);
-                cout << item << " * (1 / (2^" << pos << "))";
+                cout << item << " * 2^-" << pos;
 
                 if (i != size - 1) {
                     SetConsoleTextAttribute(handleConsole, Green);
@@ -441,14 +441,15 @@ private:
                         else {
                             SetConsoleTextAttribute(handleConsole, Blue);
                             cout << " = ";
-
-                            SetConsoleTextAttribute(handleConsole, Green);
-                            cout << afterRes << endl;
                         }
                     }
                 }
 
                 item = item * (1 / pow(2, pos));
+
+               // SetConsoleTextAttribute(handleConsole, Green);
+               // cout << item << endl;
+
                 afterRes += item;
             }
 
@@ -459,6 +460,7 @@ private:
                 SetConsoleTextAttribute(handleConsole, White);
                 cout << "\nИтоговый результат: ";
 
+                SetConsoleTextAttribute(handleConsole, Green);
                 cout << beforeRes;
 
                 SetConsoleTextAttribute(handleConsole, Yellow);
