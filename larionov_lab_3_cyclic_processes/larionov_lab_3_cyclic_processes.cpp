@@ -261,6 +261,34 @@ public:
 
 };
 
+class Task16 {
+private:
+    const int DEFAULT_E = -5;
+
+    int GetN(double e) {
+
+        double x;
+        int n = 1;
+
+        do
+        {
+            x *= 1 - (1 / pow(n, 2));
+                
+        } while (abs(x - 0.5 >= e));
+
+       return n;
+    }
+public:
+    void Init() {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+        cout << "16) Вычислить, сколько сомножителей надо взять в произведении, чтобы равенство выполнялось с указанной точностью?" << endl << endl;
+
+
+    }
+};
+
 class Task36 {
 private:
     string inputBin(string text) {
@@ -697,6 +725,8 @@ int main()
         cout << "\nВведите номер задачи" << endl;
         cout << "6)	Каждая деталь должна последовательно пройти обработку на каждом из 3 станков." << endl;
         cout << "Вычислять, сколько времени займет обработка всех деталей." << endl << endl;
+
+        cout << "16) Вычислить, сколько сомножителей надо взять в произведении, чтобы равенство выполнялось с указанной точностью?" << endl << endl;
 
         cout << "36) Вычислить десятичное представление двоичного числа" << endl << endl;
 
