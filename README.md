@@ -11,6 +11,7 @@
       <p align="center">Исходные данные на основе случайных чисел</p>
    </p>
 </figure>
+</br>
 
 <figure>
    <p align="center">
@@ -18,6 +19,7 @@
       <p align="center">Ручной ввод исходных данных</p>
    </p>
 </figure>
+</br>
 
 **16) Вычислить, сколько сомножителей надо взять в произведении, чтобы равенство выполнялось с указанной точностью**
 
@@ -53,6 +55,7 @@
       <p align="center">Ручной ввод исходных данных</p>
    </p>
 </figure>
+</br>
 
 **36) Вычислить десятичное представление двоичного числа**
 
@@ -62,6 +65,7 @@
       <p align="center">Целое число</p>
    </p>
 </figure>
+</br>
 
 <figure>
    <p align="center">
@@ -69,3 +73,21 @@
       <p align="center">Дробое число</p>
    </p>
 </figure>
+</br>
+
+**46) Вычислить сверхпростые числа**
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/prog_lan_larionov_lab_3_cyclic_processes/blob/master/screens/46-1.jpg">
+      <p align="center">Числа по порядку, до указанного максимума</p>
+   </p>
+</figure>
+</br>
+
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/prog_lan_larionov_lab_3_cyclic_processes/blob/master/screens/46-2.jpg">
+      <p align="center">Ручной ввод исходных данных</p>
+   </p>
+</figure>
+</br>
