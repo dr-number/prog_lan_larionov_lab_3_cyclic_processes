@@ -197,6 +197,27 @@ public:
 
 };
 
+class MyPrint {
+public:
+    void PrintInfo(string type, string info, string moreInfo = "") {
+
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << type << " ";
+
+        SetConsoleTextAttribute(handleConsole, Green);
+        cout << info;
+
+        if (moreInfo != "") {
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            cout << " " << moreInfo;
+        }
+
+        cout << endl;
+    }
+};
+
 class Task6 {
 private:
     const int MIN_DETALS = 1;
@@ -328,28 +349,12 @@ private:
         return result;
     }
 
-    void PrintInfo(string type, string info, string moreInfo = "") {
-
-        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-
-        SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << type << " ";
-
-        SetConsoleTextAttribute(handleConsole, Green);
-        cout << info;
-
-        if (moreInfo != "") {
-            SetConsoleTextAttribute(handleConsole, Yellow);
-            cout << " " << moreInfo;
-        }
-
-        cout << endl;
-    }
-
 public:
     void Init() {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "16) ¬ычислить, сколько сомножителей надо вз€ть в произведении, чтобы равенство выполн€лось с указанной точностью?" << endl << endl;
+        cout << "16) ¬ычислить, сколько сомножителей надо вз€ть в произведении, чтобы равенство выполн€лось с указанной точностью" << endl << endl;
         
         cout << "(бесконечность) " << endl;
         cout << "     ###" << endl;
@@ -370,15 +375,17 @@ public:
             printPeriod = myInput.InputIntData("¬ведите переодичность вывода промежуточных результатов [по умолчанию " + to_string(DEFAULT_PRINT_PERIOD) + "]: ", MIN_PRINT_PERIOD, MAX_PRINT_PERIOD, DEFAULT_PRINT_PERIOD);
 
         cout << "\n»сходные данные:" << endl;
-        PrintInfo("k:", to_string(k));
-        PrintInfo("“очность вычислений:", to_string(e));
+
+        MyPrint myPrint = *new MyPrint();
+        myPrint.PrintInfo("k:", to_string(k));
+        myPrint.PrintInfo("“очность вычислений:", to_string(e));
 
         if(isShowCalc)
-            PrintInfo("ѕереодичность вывода промежуточных результатов:", to_string(printPeriod));
+            myPrint.PrintInfo("ѕереодичность вывода промежуточных результатов:", to_string(printPeriod));
 
         cout << endl;
 
-        PrintInfo("\nЌужно вз€ть:", to_string(GetN(k, e, isShowCalc, printPeriod)), "сомножителей");
+        myPrint.PrintInfo("\nЌужно вз€ть:", to_string(GetN(k, e, isShowCalc, printPeriod)), "сомножителей");
 
     }
 };
@@ -627,6 +634,52 @@ public:
     }
 };
 
+class Task26 {
+private:
+    const double DEFAULT_X = 45;
+    const double MIN_X = 1;
+    const double MAX_X = 10000;
+
+    const double DEFAULT_E = 0.00001;
+    const double MIN_E = 0.000000001;
+    const double MAX_E = 0.999999999;
+
+    double RowCos(double x)
+    {
+        int n = 0;
+        double result = 1, a = 1;
+
+        for (int i = 1; i <= 10; i++)
+        {
+            a = -(a * pow(x, 2)) / ((2 * n + 2) * (2 * n + 1));
+            result += a;
+            n++;
+        }
+
+        return result;
+    }
+public:
+    void Init() {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+        MyQuestion myQuestion = *new MyQuestion();
+        double x, e;
+
+        if (myQuestion.isQuestion(myQuestion.QUESTION_RANDOM_DATA) {
+            MyRandom myRandom = *new MyRandom();
+        }
+        else {
+            MyInput myInput = *new MyInput();
+            x = myInput.InputData("¬ведите x в градусах [по умолчанию " + to_string(DEFAULT_X) + "]: ", MIN_X, MAX_X, DEFAULT_X);
+            e = myInput.InputData("¬ведите погрешность вычислений [по умолчанию " + to_string(DEFAULT_E) + "]: ", MIN_X, MAX_X, DEFAULT_E);
+        }
+
+        MyPrint myPrint = *new MyPrint();
+
+    }
+};
+
 class Task46 {
 private:
     const int MIN_COUNT = 1;
@@ -820,7 +873,9 @@ int main()
         cout << "6)	 ажда€ деталь должна последовательно пройти обработку на каждом из 3 станков." << endl;
         cout << "¬ычисл€ть, сколько времени займет обработка всех деталей." << endl << endl;
 
-        cout << "16) ¬ычислить, сколько сомножителей надо вз€ть в произведении, чтобы равенство выполн€лось с указанной точностью?" << endl << endl;
+        cout << "16) ¬ычислить, сколько сомножителей надо вз€ть в произведении, чтобы равенство выполн€лось с указанной точностью" << endl << endl;
+
+        cout << "26) –азложить в р€д cos(x) с заданной погрешностью" << endl << endl;
 
         cout << "36) ¬ычислить дес€тичное представление двоичного числа" << endl << endl;
 
@@ -839,6 +894,10 @@ int main()
         else if (select == "16") {
             Task16 task16 = *new Task16();
             task16.Init();
+        }
+        else if (select == "26") {
+            Task26 task26 = *new Task26();
+            task26.Init();
         }
         else if (select == "36") {
             Task36 task36 = *new Task36();
