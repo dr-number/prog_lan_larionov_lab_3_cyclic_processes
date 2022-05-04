@@ -77,7 +77,7 @@ public:
         return regex_match(str, regex("^[-]?[0-9]*"));
     }
 
-    double InputData(string text, int min, int max, int defaultValue = -1) {
+    double InputData(string text, int min, int max, double defaultValue = -1) {
 
         string xStr = "";
         double result = 0;
@@ -275,7 +275,7 @@ private:
 
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
-        int result = k - 1;
+        int result = k;
         double x = 1;
 
         double check;
@@ -289,15 +289,15 @@ private:
                 cout << "1 - " << k << "^-2 = " << x << " - 0.5 = " << x - 0.5;
             }
 
-            check = fabs(x - 0.5); //abs
+            check = abs(x - 0.5);
             if (check < e) {
 
                 if (isPrint) {
                     SetConsoleTextAttribute(handleConsole, Green);
-                    cout << " < ";
+                    cout << " < " << e << endl;
                 }
 
-                result = k - 1;
+                result = k;
                 break;
             }
             else if (isPrint) {
@@ -324,8 +324,10 @@ private:
 
         if (moreInfo != "") {
             SetConsoleTextAttribute(handleConsole, Yellow);
-            cout << " " << moreInfo << endl;
+            cout << " " << moreInfo;
         }
+
+        cout << endl;
     }
 
 public:
