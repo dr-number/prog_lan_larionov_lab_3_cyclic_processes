@@ -818,7 +818,7 @@ public:
         }
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << countSuperPrimeNumber << " числел из " << count << " оказались простыми" << endl;
+        cout << countSuperPrimeNumber << " числел из " << count << " оказались сверхпростыми" << endl;
 
         SetConsoleTextAttribute(handleConsole, White);
 
