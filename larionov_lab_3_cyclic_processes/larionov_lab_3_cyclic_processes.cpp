@@ -807,11 +807,11 @@ int main()
         if (select == "6") {
             Task6 task6 = *new Task6();
             task6.Init();
-        }/*
+        }
         else if (select == "16") {
             Task16 task16 = *new Task16();
             task16.Init();
-        }*/
+        }
         else if (select == "36") {
             Task36 task36 = *new Task36();
             task36.Init();
