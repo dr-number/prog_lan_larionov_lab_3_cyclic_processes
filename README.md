@@ -91,3 +91,18 @@
    </p>
 </figure>
 </br>
+
+**Вычислить разности между первым и остальными элементами исходной последовательности**
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/prog_lan_larionov_lab_3_cyclic_processes/blob/master/screens/56-1.jpg">
+      <p align="center">С промежуточными вычислениями</p>
+   </p>
+</figure>
+</br>
+
+<p align="center">
+   <img src="https://github.com/dr-number/prog_lan_larionov_lab_3_cyclic_processes/blob/master/screens/56-2.jpg">
+   <p align="center">Промежуточные вычисления скрыты</p>
+</p>
+</br>
