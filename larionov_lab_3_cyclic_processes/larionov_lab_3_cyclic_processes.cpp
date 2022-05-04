@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <Windows.h>
 #include <random>
 #include <regex>
@@ -54,10 +54,10 @@ string RoundStr(float var, int after = 2) {
 float Round(float var)
 {
     // 37.66666 * 100 = 3766.66
-    // 3766.66 + .5 = 3767.16 для значения округления
+    // 3766.66 + .5 = 3767.16 РґР»СЏ Р·РЅР°С‡РµРЅРёСЏ РѕРєСЂСѓРіР»РµРЅРёСЏ
 
-    // затем вводим тип int в значение 3767
-    // затем делим на 100, поэтому значение преобразуется в 37,67
+    // Р·Р°С‚РµРј РІРІРѕРґРёРј С‚РёРї int РІ Р·РЅР°С‡РµРЅРёРµ 3767
+    // Р·Р°С‚РµРј РґРµР»РёРј РЅР° 100, РїРѕСЌС‚РѕРјСѓ Р·РЅР°С‡РµРЅРёРµ РїСЂРµРѕР±СЂР°Р·СѓРµС‚СЃСЏ РІ 37,67
 
     float value = (int)(var * 100 + .5);
     return stod(RoundStr((float)value / 100));
@@ -104,11 +104,11 @@ public:
 
             if (!(isNumber && isDouble(xStr))) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << xStr + " - не число!" << endl << endl;
+                cout << endl << xStr + " - РЅРµ С‡РёСЃР»Рѕ!" << endl << endl;
             }
             else if (result > max || result < min) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << "Число должно лежать в промежутке [" << min << "; " << max << "]!" << endl << endl;
+                cout << endl << "Р§РёСЃР»Рѕ РґРѕР»Р¶РЅРѕ Р»РµР¶Р°С‚СЊ РІ РїСЂРѕРјРµР¶СѓС‚РєРµ [" << min << "; " << max << "]!" << endl << endl;
             }
             else
                 break;
@@ -144,11 +144,11 @@ public:
 
             if (!(isNumber && isNum(xStr))) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << xStr + " - не число!" << endl << endl;
+                cout << endl << xStr + " - РЅРµ С‡РёСЃР»Рѕ!" << endl << endl;
             }
             else if (result > max || result < min) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << "Число должно лежать в промежутке [" << min << "; " << max << "]!" << endl << endl;
+                cout << endl << "Р§РёСЃР»Рѕ РґРѕР»Р¶РЅРѕ Р»РµР¶Р°С‚СЊ РІ РїСЂРѕРјРµР¶СѓС‚РєРµ [" << min << "; " << max << "]!" << endl << endl;
             }
             else
                 break;
@@ -162,9 +162,9 @@ public:
 class MyQuestion {
 
 public:
-    const string QUESTION_RANDOM_DATA = "Сгенерировать данные случайным образом [y/n]?";
-    const string QUESTION_IN_ORDER_DATA = "Взять числа по порядку [y/n]?";
-    const string QUESTION_SHOW_CALC = "Показывать ход вычислений [y/n]?";
+    const string QUESTION_RANDOM_DATA = "РЎРіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ РґР°РЅРЅС‹Рµ СЃР»СѓС‡Р°Р№РЅС‹Рј РѕР±СЂР°Р·РѕРј [y/n]?";
+    const string QUESTION_IN_ORDER_DATA = "Р’Р·СЏС‚СЊ С‡РёСЃР»Р° РїРѕ РїРѕСЂСЏРґРєСѓ [y/n]?";
+    const string QUESTION_SHOW_CALC = "РџРѕРєР°Р·С‹РІР°С‚СЊ С…РѕРґ РІС‹С‡РёСЃР»РµРЅРёР№ [y/n]?";
 
     bool isQuestion(string textQuestion) {
 
@@ -183,11 +183,11 @@ public:
 
     double GetRandom(int min, int max) {
 
-        random_device random_device; // Источник энтропии.
-        mt19937 generator(random_device()); // Генератор случайных чисел.
+        random_device random_device; // РСЃС‚РѕС‡РЅРёРє СЌРЅС‚СЂРѕРїРёРё.
+        mt19937 generator(random_device()); // Р“РµРЅРµСЂР°С‚РѕСЂ СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР».
 
-        // (Здесь берется одно инициализирующее значение, можно брать больше)
-        uniform_int_distribution<> distribution(min, max); // Равномерное распределение [min, max]
+        // (Р—РґРµСЃСЊ Р±РµСЂРµС‚СЃСЏ РѕРґРЅРѕ РёРЅРёС†РёР°Р»РёР·РёСЂСѓСЋС‰РµРµ Р·РЅР°С‡РµРЅРёРµ, РјРѕР¶РЅРѕ Р±СЂР°С‚СЊ Р±РѕР»СЊС€Рµ)
+        uniform_int_distribution<> distribution(min, max); // Р Р°РІРЅРѕРјРµСЂРЅРѕРµ СЂР°СЃРїСЂРµРґРµР»РµРЅРёРµ [min, max]
 
         return distribution(generator);
 
@@ -232,8 +232,8 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "Каждая деталь должна последовательно пройти обработку на каждом из 3 станков." << endl;
-        cout << "Вычислять, сколько времени займет обработка всех деталей." << endl << endl;
+        cout << "РљР°Р¶РґР°СЏ РґРµС‚Р°Р»СЊ РґРѕР»Р¶РЅР° РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РїСЂРѕР№С‚Рё РѕР±СЂР°Р±РѕС‚РєСѓ РЅР° РєР°Р¶РґРѕРј РёР· 3 СЃС‚Р°РЅРєРѕРІ." << endl;
+        cout << "Р’С‹С‡РёСЃР»СЏС‚СЊ, СЃРєРѕР»СЊРєРѕ РІСЂРµРјРµРЅРё Р·Р°Р№РјРµС‚ РѕР±СЂР°Р±РѕС‚РєР° РІСЃРµС… РґРµС‚Р°Р»РµР№." << endl << endl;
 
         double timeInMachine1, timeInMachine2, timeInMachine3;
         double timeDetalInAllMachines, timeInAllMachines = 0;
@@ -243,14 +243,14 @@ public:
         MyInput myInput = *new MyInput();
 
         
-        int countDetals = myInput.InputIntData("Введите колличество деталей которое нужно обработать: ", MIN_DETALS, MAX_DETALS);
+        int countDetals = myInput.InputIntData("Р’РІРµРґРёС‚Рµ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РґРµС‚Р°Р»РµР№ РєРѕС‚РѕСЂРѕРµ РЅСѓР¶РЅРѕ РѕР±СЂР°Р±РѕС‚Р°С‚СЊ: ", MIN_DETALS, MAX_DETALS);
 
         bool isRandomData = myQuestion.isQuestion(myQuestion.QUESTION_RANDOM_DATA);
 
         for (int i = 0; i < countDetals; ++i) {
 
             SetConsoleTextAttribute(handleConsole, Green);
-            cout << "\nОбработка детали " << (i + 1) << " из " << countDetals << endl;
+            cout << "\nРћР±СЂР°Р±РѕС‚РєР° РґРµС‚Р°Р»Рё " << (i + 1) << " РёР· " << countDetals << endl;
 
             if (isRandomData) {
                 timeInMachine1 = myRandom.GetRandom(MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
@@ -258,26 +258,26 @@ public:
                 timeInMachine3 = myRandom.GetRandom(MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
             }
             else {
-                timeInMachine1 = myInput.InputData("Введите время обработки детали на станке №1 (в секундах): ", MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
-                timeInMachine2 = myInput.InputData("Введите время обработки детали на станке №2 (в секундах): ", MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
-                timeInMachine3 = myInput.InputData("Введите время обработки детали на станке №3 (в секундах): ", MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
+                timeInMachine1 = myInput.InputData("Р’РІРµРґРёС‚Рµ РІСЂРµРјСЏ РѕР±СЂР°Р±РѕС‚РєРё РґРµС‚Р°Р»Рё РЅР° СЃС‚Р°РЅРєРµ в„–1 (РІ СЃРµРєСѓРЅРґР°С…): ", MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
+                timeInMachine2 = myInput.InputData("Р’РІРµРґРёС‚Рµ РІСЂРµРјСЏ РѕР±СЂР°Р±РѕС‚РєРё РґРµС‚Р°Р»Рё РЅР° СЃС‚Р°РЅРєРµ в„–2 (РІ СЃРµРєСѓРЅРґР°С…): ", MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
+                timeInMachine3 = myInput.InputData("Р’РІРµРґРёС‚Рµ РІСЂРµРјСЏ РѕР±СЂР°Р±РѕС‚РєРё РґРµС‚Р°Р»Рё РЅР° СЃС‚Р°РЅРєРµ в„–3 (РІ СЃРµРєСѓРЅРґР°С…): ", MIN_TIME_PROCESSING, MAX_TIME_PROCESSING);
             }
 
             SetConsoleTextAttribute(handleConsole, Yellow);
-            cout << "\nОбработка на станке №1 занимает: " << timeInMachine1 << " сек." << endl;
-            cout << "Обработка на станке №2 занимает: " << timeInMachine2 << " сек." << endl;
-            cout << "Обработка на станке №3 занимает: " << timeInMachine3 << " сек." << endl;
+            cout << "\nРћР±СЂР°Р±РѕС‚РєР° РЅР° СЃС‚Р°РЅРєРµ в„–1 Р·Р°РЅРёРјР°РµС‚: " << timeInMachine1 << " СЃРµРє." << endl;
+            cout << "РћР±СЂР°Р±РѕС‚РєР° РЅР° СЃС‚Р°РЅРєРµ в„–2 Р·Р°РЅРёРјР°РµС‚: " << timeInMachine2 << " СЃРµРє." << endl;
+            cout << "РћР±СЂР°Р±РѕС‚РєР° РЅР° СЃС‚Р°РЅРєРµ в„–3 Р·Р°РЅРёРјР°РµС‚: " << timeInMachine3 << " СЃРµРє." << endl;
 
             timeDetalInAllMachines = timeInMachine1 + timeInMachine2 + timeInMachine3;
 
             SetConsoleTextAttribute(handleConsole, Green);
-            cout << "Cуммарное время обработки детали: " << timeDetalInAllMachines << " сек." << endl << endl;
+            cout << "CСѓРјРјР°СЂРЅРѕРµ РІСЂРµРјСЏ РѕР±СЂР°Р±РѕС‚РєРё РґРµС‚Р°Р»Рё: " << timeDetalInAllMachines << " СЃРµРє." << endl << endl;
 
             timeInAllMachines += timeDetalInAllMachines;
         }
 
         SetConsoleTextAttribute(handleConsole, Blue);
-        cout << "Обработка всех деталей занимает: " << timeInAllMachines << " секунд" << endl << endl;
+        cout << "РћР±СЂР°Р±РѕС‚РєР° РІСЃРµС… РґРµС‚Р°Р»РµР№ Р·Р°РЅРёРјР°РµС‚: " << timeInAllMachines << " СЃРµРєСѓРЅРґ" << endl << endl;
     }
 
 };
@@ -354,17 +354,17 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "16) Вычислить, сколько сомножителей надо взять в произведении, чтобы равенство выполнялось с указанной точностью" << endl << endl;
+        cout << "16) Р’С‹С‡РёСЃР»РёС‚СЊ, СЃРєРѕР»СЊРєРѕ СЃРѕРјРЅРѕР¶РёС‚РµР»РµР№ РЅР°РґРѕ РІР·СЏС‚СЊ РІ РїСЂРѕРёР·РІРµРґРµРЅРёРё, С‡С‚РѕР±С‹ СЂР°РІРµРЅСЃС‚РІРѕ РІС‹РїРѕР»РЅСЏР»РѕСЃСЊ СЃ СѓРєР°Р·Р°РЅРЅРѕР№ С‚РѕС‡РЅРѕСЃС‚СЊСЋ" << endl << endl;
         
-        cout << "(бесконечность) " << endl;
+        cout << "(Р±РµСЃРєРѕРЅРµС‡РЅРѕСЃС‚СЊ) " << endl;
         cout << "     ###" << endl;
         cout << "     # #  = (1 - 1 / k^2) = 0.5" << endl;
         cout << "     # #" << endl << endl;
 
         MyInput myInput = *new MyInput();
         
-        int k = myInput.InputIntData("Введите значение k [по умолчанию " + to_string(DEFAULT_K) + "]: ", MIN_K, MAX_K, DEFAULT_K);
-        double e = myInput.InputData("Введите точность вычислений [по умолчанию " + to_string(DEFAULT_E) + "]: ", MIN_E, MAX_E, DEFAULT_E);
+        int k = myInput.InputIntData("Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ k [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_K) + "]: ", MIN_K, MAX_K, DEFAULT_K);
+        double e = myInput.InputData("Р’РІРµРґРёС‚Рµ С‚РѕС‡РЅРѕСЃС‚СЊ РІС‹С‡РёСЃР»РµРЅРёР№ [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_E) + "]: ", MIN_E, MAX_E, DEFAULT_E);
 
         MyQuestion myQuestion = *new MyQuestion();
         bool isShowCalc = myQuestion.isQuestion(myQuestion.QUESTION_SHOW_CALC);
@@ -372,20 +372,20 @@ public:
         int printPeriod = DEFAULT_PRINT_PERIOD;
 
         if(isShowCalc)
-            printPeriod = myInput.InputIntData("Введите переодичность вывода промежуточных результатов [по умолчанию " + to_string(DEFAULT_PRINT_PERIOD) + "]: ", MIN_PRINT_PERIOD, MAX_PRINT_PERIOD, DEFAULT_PRINT_PERIOD);
+            printPeriod = myInput.InputIntData("Р’РІРµРґРёС‚Рµ РїРµСЂРµРѕРґРёС‡РЅРѕСЃС‚СЊ РІС‹РІРѕРґР° РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹С… СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_PRINT_PERIOD) + "]: ", MIN_PRINT_PERIOD, MAX_PRINT_PERIOD, DEFAULT_PRINT_PERIOD);
 
-        cout << "\nИсходные данные:" << endl;
+        cout << "\nРСЃС…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ:" << endl;
 
         MyPrint myPrint = *new MyPrint();
         myPrint.PrintInfo("k:", to_string(k));
-        myPrint.PrintInfo("Точность вычислений:", to_string(e));
+        myPrint.PrintInfo("РўРѕС‡РЅРѕСЃС‚СЊ РІС‹С‡РёСЃР»РµРЅРёР№:", to_string(e));
 
         if(isShowCalc)
-            myPrint.PrintInfo("Переодичность вывода промежуточных результатов:", to_string(printPeriod));
+            myPrint.PrintInfo("РџРµСЂРµРѕРґРёС‡РЅРѕСЃС‚СЊ РІС‹РІРѕРґР° РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹С… СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ:", to_string(printPeriod));
 
         cout << endl;
 
-        myPrint.PrintInfo("\nНужно взять:", to_string(GetN(k, e, isShowCalc, printPeriod)), "сомножителей");
+        myPrint.PrintInfo("\nРќСѓР¶РЅРѕ РІР·СЏС‚СЊ:", to_string(GetN(k, e, isShowCalc, printPeriod)), "СЃРѕРјРЅРѕР¶РёС‚РµР»РµР№");
 
     }
 };
@@ -436,7 +436,7 @@ private:
 
             if (!isCorrect) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << result + " - не двоичное число!" << endl << endl;
+                cout << endl << result + " - РЅРµ РґРІРѕРёС‡РЅРѕРµ С‡РёСЃР»Рѕ!" << endl << endl;
             }
             else
                 break;
@@ -481,7 +481,7 @@ private:
 
         if (after != 0) {
             SetConsoleTextAttribute(handleConsole, White);
-            cout << "\n\nЦелая часть: ";
+            cout << "\n\nР¦РµР»Р°СЏ С‡Р°СЃС‚СЊ: ";
         }
 
         if (before != 0) {
@@ -546,7 +546,7 @@ private:
         if (after != 0) {
 
             SetConsoleTextAttribute(handleConsole, White);
-            cout << "\n\nДробная часть: ";
+            cout << "\n\nР”СЂРѕР±РЅР°СЏ С‡Р°СЃС‚СЊ: ";
 
             string afterStr = AfterTrim(to_string(after));
 
@@ -597,7 +597,7 @@ private:
             if (after != 0) {
 
                 SetConsoleTextAttribute(handleConsole, White);
-                cout << "\n\nИтоговый результат: ";
+                cout << "\n\nРС‚РѕРіРѕРІС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚: ";
 
                 SetConsoleTextAttribute(handleConsole, Green);
                 cout << beforeRes;
@@ -625,11 +625,11 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "Вычислить десятичное представление двоичного числа" << endl << endl;
-        string binStr = inputBin("Введите число в двоичной системе счисления: ");
+        cout << "Р’С‹С‡РёСЃР»РёС‚СЊ РґРµСЃСЏС‚РёС‡РЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РґРІРѕРёС‡РЅРѕРіРѕ С‡РёСЃР»Р°" << endl << endl;
+        string binStr = inputBin("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РІ РґРІРѕРёС‡РЅРѕР№ СЃРёСЃС‚РµРјРµ СЃС‡РёСЃР»РµРЅРёСЏ: ");
 
         SetConsoleTextAttribute(handleConsole, Green);
-        cout << "\nВ десятичной системе счисления: " << BinToDec(binStr) << endl << endl;
+        cout << "\nР’ РґРµСЃСЏС‚РёС‡РЅРѕР№ СЃРёСЃС‚РµРјРµ СЃС‡РёСЃР»РµРЅРёСЏ: " << BinToDec(binStr) << endl << endl;
 
     }
 };
@@ -710,26 +710,26 @@ public:
         SetConsoleTextAttribute(handleConsole, White);
 
         MyInput myInput = *new MyInput();
-        double x = myInput.InputData("Введите x в градусах [по умолчанию " + to_string(DEFAULT_X) + "]: ", MIN_X, MAX_X, DEFAULT_X);
-        double e = myInput.InputData("Введите погрешность вычислений [по умолчанию " + to_string(DEFAULT_E) + "]: ", MIN_E, MAX_E, DEFAULT_E);
+        double x = myInput.InputData("Р’РІРµРґРёС‚Рµ x РІ РіСЂР°РґСѓСЃР°С… [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_X) + "]: ", MIN_X, MAX_X, DEFAULT_X);
+        double e = myInput.InputData("Р’РІРµРґРёС‚Рµ РїРѕРіСЂРµС€РЅРѕСЃС‚СЊ РІС‹С‡РёСЃР»РµРЅРёР№ [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_E) + "]: ", MIN_E, MAX_E, DEFAULT_E);
 
         MyQuestion myQuestion = *new MyQuestion();
         bool isShowCalc = myQuestion.isQuestion(myQuestion.QUESTION_SHOW_CALC);
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "Исходные данные:" << endl;
+        cout << "РСЃС…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ:" << endl;
 
         MyPrint myPrint = *new MyPrint();
-        myPrint.PrintInfo("x", to_string(x), "град.");
-        myPrint.PrintInfo("Погрешность вычислений:", to_string(e), "\n");
+        myPrint.PrintInfo("x", to_string(x), "РіСЂР°Рґ.");
+        myPrint.PrintInfo("РџРѕРіСЂРµС€РЅРѕСЃС‚СЊ РІС‹С‡РёСЃР»РµРЅРёР№:", to_string(e), "\n");
 
         myResult result = RowCos(x, e, isShowCalc);
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "\nРезультат вычислений:" << endl;
+        cout << "\nР РµР·СѓР»СЊС‚Р°С‚ РІС‹С‡РёСЃР»РµРЅРёР№:" << endl;
 
-        myPrint.PrintInfo("Значение ряда:", to_string(result.result));
-        myPrint.PrintInfo("Число итераций требуемое для достижения заданной точности:", to_string(result.n));
+        myPrint.PrintInfo("Р—РЅР°С‡РµРЅРёРµ СЂСЏРґР°:", to_string(result.result));
+        myPrint.PrintInfo("Р§РёСЃР»Рѕ РёС‚РµСЂР°С†РёР№ С‚СЂРµР±СѓРµРјРѕРµ РґР»СЏ РґРѕСЃС‚РёР¶РµРЅРёСЏ Р·Р°РґР°РЅРЅРѕР№ С‚РѕС‡РЅРѕСЃС‚Рё:", to_string(result.n));
 
         cout << endl;
 
@@ -782,10 +782,10 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "Вычислить сверхпростые числа" << endl << endl;
+        cout << "Р’С‹С‡РёСЃР»РёС‚СЊ СЃРІРµСЂС…РїСЂРѕСЃС‚С‹Рµ С‡РёСЃР»Р°" << endl << endl;
 
         MyInput myInput = *new MyInput();
-        int count = myInput.InputIntData("Сколько чисел нужно обработать: ", MIN_COUNT, MAX_COUNT);
+        int count = myInput.InputIntData("РЎРєРѕР»СЊРєРѕ С‡РёСЃРµР» РЅСѓР¶РЅРѕ РѕР±СЂР°Р±РѕС‚Р°С‚СЊ: ", MIN_COUNT, MAX_COUNT);
 
         MyRandom myRandom = *new MyRandom();
         MyQuestion myQuestion = *new MyQuestion();
@@ -800,16 +800,16 @@ public:
             if (isInOrderData)
                 number = i;
             else 
-                number = myInput.InputIntData("Введите целое число (" + to_string(i + 1) + " из " + to_string(count) + "): ", MIN_NUMBER, MAX_NUMBER);
+                number = myInput.InputIntData("Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ С‡РёСЃР»Рѕ (" + to_string(i + 1) + " РёР· " + to_string(count) + "): ", MIN_NUMBER, MAX_NUMBER);
 
             if (IsSuperPrimeNumber(number)) {
                 SetConsoleTextAttribute(handleConsole, Green);
-                cout << number << " - сверхпростое число" << endl;
+                cout << number << " - СЃРІРµСЂС…РїСЂРѕСЃС‚РѕРµ С‡РёСЃР»Рѕ" << endl;
                 ++countSuperPrimeNumber;
             }
             else if(!isInOrderData) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << number << " - не сверхпростое число" << endl;
+                cout << number << " - РЅРµ СЃРІРµСЂС…РїСЂРѕСЃС‚РѕРµ С‡РёСЃР»Рѕ" << endl;
             }
 
             if (!isInOrderData)
@@ -818,7 +818,7 @@ public:
         }
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << countSuperPrimeNumber << " числел из " << count << " оказались простыми" << endl;
+        cout << countSuperPrimeNumber << " С‡РёСЃР»РµР» РёР· " << count << " РѕРєР°Р·Р°Р»РёСЃСЊ РїСЂРѕСЃС‚С‹РјРё" << endl;
 
         SetConsoleTextAttribute(handleConsole, White);
 
@@ -859,7 +859,7 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "Вычислить разности между первым и остальными элементами исходной последовательности" << endl << endl;
+        cout << "Р’С‹С‡РёСЃР»РёС‚СЊ СЂР°Р·РЅРѕСЃС‚Рё РјРµР¶РґСѓ РїРµСЂРІС‹Рј Рё РѕСЃС‚Р°Р»СЊРЅС‹РјРё СЌР»РµРјРµРЅС‚Р°РјРё РёСЃС…РѕРґРЅРѕР№ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё" << endl << endl;
 
         cout << "a(n) = 1 / (e^n * 2^n)" << endl;
 
@@ -871,11 +871,11 @@ public:
         
        
         MyInput myInput = *new MyInput();
-        n = myInput.InputIntData("Введите количество элементов последовательности (n) [по умолчанию " + to_string(DEFAULT_N) + "]: ", MIN_N, MAX_N, DEFAULT_N);
+        n = myInput.InputIntData("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё (n) [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_N) + "]: ", MIN_N, MAX_N, DEFAULT_N);
         
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "\nПервый элемент последовательности: " << endl;
+        cout << "\nРџРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё: " << endl;
 
         double part1 = GetPart(1, isShowCalc);
         SetConsoleTextAttribute(handleConsole, Blue);
@@ -894,7 +894,7 @@ public:
             }
 
             SetConsoleTextAttribute(handleConsole, Yellow);
-            cout << "Разность: ";
+            cout << "Р Р°Р·РЅРѕСЃС‚СЊ: ";
 
             SetConsoleTextAttribute(handleConsole, Blue);
             cout << part1;
@@ -915,8 +915,8 @@ int main()
 
     SetConsoleTextAttribute(handleConsole, White);
 
-    cout << "Тема 3. Циклические вычислительные процессы" << endl;
-    cout << "Ларионов Никита Юрьевич. гр. 110з" << endl;
+    cout << "РўРµРјР° 3. Р¦РёРєР»РёС‡РµСЃРєРёРµ РІС‹С‡РёСЃР»РёС‚РµР»СЊРЅС‹Рµ РїСЂРѕС†РµСЃСЃС‹" << endl;
+    cout << "Р›Р°СЂРёРѕРЅРѕРІ РќРёРєРёС‚Р° Р®СЂСЊРµРІРёС‡. РіСЂ. 110Р·" << endl;
 
     bool isGo = true;
     string select;
@@ -925,21 +925,21 @@ int main()
     {
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "\nВведите номер задачи" << endl;
-        cout << "6)	Каждая деталь должна последовательно пройти обработку на каждом из 3 станков." << endl;
-        cout << "Вычислять, сколько времени займет обработка всех деталей." << endl << endl;
+        cout << "\nР’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ Р·Р°РґР°С‡Рё" << endl;
+        cout << "6)	РљР°Р¶РґР°СЏ РґРµС‚Р°Р»СЊ РґРѕР»Р¶РЅР° РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РїСЂРѕР№С‚Рё РѕР±СЂР°Р±РѕС‚РєСѓ РЅР° РєР°Р¶РґРѕРј РёР· 3 СЃС‚Р°РЅРєРѕРІ." << endl;
+        cout << "Р’С‹С‡РёСЃР»СЏС‚СЊ, СЃРєРѕР»СЊРєРѕ РІСЂРµРјРµРЅРё Р·Р°Р№РјРµС‚ РѕР±СЂР°Р±РѕС‚РєР° РІСЃРµС… РґРµС‚Р°Р»РµР№." << endl << endl;
 
-        cout << "16) Вычислить, сколько сомножителей надо взять в произведении, чтобы равенство выполнялось с указанной точностью" << endl << endl;
+        cout << "16) Р’С‹С‡РёСЃР»РёС‚СЊ, СЃРєРѕР»СЊРєРѕ СЃРѕРјРЅРѕР¶РёС‚РµР»РµР№ РЅР°РґРѕ РІР·СЏС‚СЊ РІ РїСЂРѕРёР·РІРµРґРµРЅРёРё, С‡С‚РѕР±С‹ СЂР°РІРµРЅСЃС‚РІРѕ РІС‹РїРѕР»РЅСЏР»РѕСЃСЊ СЃ СѓРєР°Р·Р°РЅРЅРѕР№ С‚РѕС‡РЅРѕСЃС‚СЊСЋ" << endl << endl;
 
-        cout << "26) Разложить в ряд cos(x) с заданной погрешностью" << endl << endl;
+        cout << "26) Р Р°Р·Р»РѕР¶РёС‚СЊ РІ СЂСЏРґ cos(x) СЃ Р·Р°РґР°РЅРЅРѕР№ РїРѕРіСЂРµС€РЅРѕСЃС‚СЊСЋ" << endl << endl;
 
-        cout << "36) Вычислить десятичное представление двоичного числа" << endl << endl;
+        cout << "36) Р’С‹С‡РёСЃР»РёС‚СЊ РґРµСЃСЏС‚РёС‡РЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РґРІРѕРёС‡РЅРѕРіРѕ С‡РёСЃР»Р°" << endl << endl;
 
-        cout << "46) Вычислить сверхпростые числа" << endl << endl;
+        cout << "46) Р’С‹С‡РёСЃР»РёС‚СЊ СЃРІРµСЂС…РїСЂРѕСЃС‚С‹Рµ С‡РёСЃР»Р°" << endl << endl;
 
-        cout << "56) Вычислить разности между первым и остальными элементами исходной последовательности" << endl << endl;
+        cout << "56) Р’С‹С‡РёСЃР»РёС‚СЊ СЂР°Р·РЅРѕСЃС‚Рё РјРµР¶РґСѓ РїРµСЂРІС‹Рј Рё РѕСЃС‚Р°Р»СЊРЅС‹РјРё СЌР»РµРјРµРЅС‚Р°РјРё РёСЃС…РѕРґРЅРѕР№ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё" << endl << endl;
 
-        cout << endl << "Для выхода введите \"0\": ";
+        cout << endl << "Р”Р»СЏ РІС‹С…РѕРґР° РІРІРµРґРёС‚Рµ \"0\": ";
 
         select = GetLine();
 
@@ -972,7 +972,7 @@ int main()
         }
         else {
             SetConsoleTextAttribute(handleConsole, Red);
-            cout << "\nНекорректные данные!" << endl;
+            cout << "\nРќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ!" << endl;
             SetConsoleTextAttribute(handleConsole, White);
         }
 
