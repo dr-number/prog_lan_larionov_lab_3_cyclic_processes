@@ -730,11 +730,17 @@ public:
 
         MyPrint myPrint = *new MyPrint();
         myPrint.PrintInfo("x", to_string(x), "град.");
-        myPrint.PrintInfo("Погрешность вычислений", to_string(e), "\n");
+        myPrint.PrintInfo("Погрешность вычислений:", to_string(e), "\n");
 
         myResult result = RowCos(x, e, isShowCalc);
 
-      
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "Результат вычислений:" << endl;
+
+        myPrint.PrintInfo("Значение ряда:", to_string(result.result));
+        myPrint.PrintInfo("Число итераций требуемое для достижения заданной точности:", to_string(result.n));
+
+        cout << endl;
 
     }
 };
