@@ -674,7 +674,7 @@ private:
 
             if (isPrint) {
                 SetConsoleTextAttribute(handleConsole, White);
-                cout << "| " << cosX << " - " << result << "| = " << check;
+                cout << "| " << cosX << " - " << result << " | = " << check;
 
                 if (check > e) {
                     SetConsoleTextAttribute(handleConsole, Red);
@@ -692,7 +692,7 @@ private:
                 cout << e << endl;
             }
 
-            if (check >= e)
+            if (check < e)
                 break;
 
         } 
@@ -709,20 +709,11 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
+        MyInput myInput = *new MyInput();
+        double x = myInput.InputData("Введите x в градусах [по умолчанию " + to_string(DEFAULT_X) + "]: ", MIN_X, MAX_X, DEFAULT_X);
+        double e = myInput.InputData("Введите погрешность вычислений [по умолчанию " + to_string(DEFAULT_E) + "]: ", MIN_E, MAX_E, DEFAULT_E);
+
         MyQuestion myQuestion = *new MyQuestion();
-        double x, e;
-
-        if (myQuestion.isQuestion(myQuestion.QUESTION_RANDOM_DATA)) {
-            MyRandom myRandom = *new MyRandom();
-            x = myRandom.GetRandom(MIN_X, MAX_X);
-            e = myRandom.GetRandom(MIN_E, MAX_E);
-        }
-        else {
-            MyInput myInput = *new MyInput();
-            x = myInput.InputData("Введите x в градусах [по умолчанию " + to_string(DEFAULT_X) + "]: ", MIN_X, MAX_X, DEFAULT_X);
-            e = myInput.InputData("Введите погрешность вычислений [по умолчанию " + to_string(DEFAULT_E) + "]: ", MIN_E, MAX_E, DEFAULT_E);
-        }
-
         bool isShowCalc = myQuestion.isQuestion(myQuestion.QUESTION_SHOW_CALC);
 
         SetConsoleTextAttribute(handleConsole, Yellow);
@@ -735,7 +726,7 @@ public:
         myResult result = RowCos(x, e, isShowCalc);
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "Результат вычислений:" << endl;
+        cout << "\nРезультат вычислений:" << endl;
 
         myPrint.PrintInfo("Значение ряда:", to_string(result.result));
         myPrint.PrintInfo("Число итераций требуемое для достижения заданной точности:", to_string(result.n));
