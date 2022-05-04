@@ -644,11 +644,16 @@ private:
     const double MIN_E = 0.000000001;
     const double MAX_E = 0.999999999;
 
+    struct myResult{
+        double result;
+        int n;
+    };
+
     double DegreeToRadian(double val) {
         return (val * PI) / 180;
     }
 
-    double RowCos(double x, double e, bool isPrint)
+    myResult RowCos(double x, double e, bool isPrint)
     {
         x = DegreeToRadian(x);
         double cosX = cos(x);
@@ -692,9 +697,11 @@ private:
 
         } 
 
-      
+        myResult res;
+        res.result = result;
+        res.n = n;
 
-        return result;
+        return res;
     }
 
 public:
@@ -724,6 +731,8 @@ public:
         MyPrint myPrint = *new MyPrint();
         myPrint.PrintInfo("x", to_string(x), "град.");
         myPrint.PrintInfo("Погрешность вычислений", to_string(e), "\n");
+
+        myResult result = RowCos(x, e, isShowCalc);
 
       
 
