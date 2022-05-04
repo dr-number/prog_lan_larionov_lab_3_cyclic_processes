@@ -644,20 +644,59 @@ private:
     const double MIN_E = 0.000000001;
     const double MAX_E = 0.999999999;
 
-    double RowCos(double x)
-    {
-        int n = 0;
-        double result = 1, a = 1;
+    double DegreeToRadian(double val) {
+        return (val * PI) / 180;
+    }
 
-        for (int i = 1; i <= 10; i++)
+    double RowCos(double x, double e, bool isPrint)
+    {
+        x = DegreeToRadian(x);
+        double cosX = cos(x);
+        double check;
+
+        int n = 0, i = 1;
+        double result = 1, a = 1;
+        
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+        while(true)
         {
             a = -(a * pow(x, 2)) / ((2 * n + 2) * (2 * n + 1));
             result += a;
             n++;
-        }
+
+            check = abs(cosX - result);
+
+            if (isPrint) {
+                SetConsoleTextAttribute(handleConsole, White);
+                cout << "| " << cosX << " - " << result << "| = " << check;
+
+                if (check > e) {
+                    SetConsoleTextAttribute(handleConsole, Red);
+                    cout << " > ";
+                } 
+                else if (check == e) {
+                    SetConsoleTextAttribute(handleConsole, Green);
+                    cout << " = ";
+                }
+                else if (check < e) {
+                    SetConsoleTextAttribute(handleConsole, Green);
+                    cout << " < ";
+                }
+
+                cout << e << endl;
+            }
+
+            if (check >= e)
+                break;
+
+        } 
+
+      
 
         return result;
     }
+
 public:
     void Init() {
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -666,16 +705,27 @@ public:
         MyQuestion myQuestion = *new MyQuestion();
         double x, e;
 
-        if (myQuestion.isQuestion(myQuestion.QUESTION_RANDOM_DATA) {
+        if (myQuestion.isQuestion(myQuestion.QUESTION_RANDOM_DATA)) {
             MyRandom myRandom = *new MyRandom();
+            x = myRandom.GetRandom(MIN_X, MAX_X);
+            e = myRandom.GetRandom(MIN_E, MAX_E);
         }
         else {
             MyInput myInput = *new MyInput();
             x = myInput.InputData("Введите x в градусах [по умолчанию " + to_string(DEFAULT_X) + "]: ", MIN_X, MAX_X, DEFAULT_X);
-            e = myInput.InputData("Введите погрешность вычислений [по умолчанию " + to_string(DEFAULT_E) + "]: ", MIN_X, MAX_X, DEFAULT_E);
+            e = myInput.InputData("Введите погрешность вычислений [по умолчанию " + to_string(DEFAULT_E) + "]: ", MIN_E, MAX_E, DEFAULT_E);
         }
 
+        bool isShowCalc = myQuestion.isQuestion(myQuestion.QUESTION_SHOW_CALC);
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "Исходные данные:" << endl;
+
         MyPrint myPrint = *new MyPrint();
+        myPrint.PrintInfo("x", to_string(x), "град.");
+        myPrint.PrintInfo("Погрешность вычислений", to_string(e), "\n");
+
+      
 
     }
 };
