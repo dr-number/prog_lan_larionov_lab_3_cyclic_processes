@@ -284,37 +284,73 @@ private:
         {
             x *= 1 - (1 / pow(k, 2));
 
-            SetConsoleTextAttribute(handleConsole, White);
-            cout << "1 - " << k << "^-2 = " << x << " - 0.5 = " << x - 0.5;
+            if (isPrint) {
+                SetConsoleTextAttribute(handleConsole, White);
+                cout << "1 - " << k << "^-2 = " << x << " - 0.5 = " << x - 0.5;
+            }
 
             check = fabs(x - 0.5); //abs
             if (check < e) {
 
-                SetConsoleTextAttribute(handleConsole, Green);
-                cout << " < ";
+                if (isPrint) {
+                    SetConsoleTextAttribute(handleConsole, Green);
+                    cout << " < ";
+                }
 
                 result = k - 1;
                 break;
             }
-            else {
+            else if (isPrint) {
                 SetConsoleTextAttribute(handleConsole, Red);
                 check == e ? cout << " = " : cout << " > ";
             }
 
-            cout << e << endl;
+            if (isPrint)
+                cout << e << endl;
         }
 
         return result;
     }
 
+    void PrintInfo(string type, string info, string moreInfo = "") {
+
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << type << " ";
+
+        SetConsoleTextAttribute(handleConsole, Green);
+        cout << info;
+
+        if (moreInfo != "") {
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            cout << " " << moreInfo << endl;
+        }
+    }
 
 public:
     void Init() {
-        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-        SetConsoleTextAttribute(handleConsole, White);
 
         cout << "16) Вычислить, сколько сомножителей надо взять в произведении, чтобы равенство выполнялось с указанной точностью?" << endl << endl;
+        
+        cout << "(бесконечность) " << endl;
+        cout << "     ###" << endl;
+        cout << "     # #  = (1 - 1 / k^2) = 0.5" << endl;
+        cout << "     # #" << endl << endl;
 
+        MyQuestion myQuestion = *new MyQuestion();
+        bool isShowCalc = myQuestion.isQuestion(myQuestion.QUESTION_SHOW_CALC);
+
+        MyInput myInput = *new MyInput();
+        
+        int k = myInput.InputIntData("Введите значение k [по умолчанию " + to_string(DEFAULT_K) + "]: ", MIN_K, MAX_K, DEFAULT_K);
+        double e = myInput.InputData("Введите точность вычислений [по умолчанию " + to_string(DEFAULT_E) + "]: ", MIN_E, MAX_E, DEFAULT_E);
+
+        cout << "\nИсходные данные:" << endl;
+        PrintInfo("k:", to_string(k));
+        PrintInfo("Точность вычислений:", to_string(e));
+
+        PrintInfo("\nНужно взять:", to_string(GetN(k, e, isShowCalc)), "сомножителей");
 
     }
 };
