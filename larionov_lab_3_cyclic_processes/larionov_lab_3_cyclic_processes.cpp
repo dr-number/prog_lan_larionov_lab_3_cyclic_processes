@@ -271,7 +271,11 @@ private:
     const int MIN_K = DEFAULT_K;
     const int MAX_K = 10000;
 
-    int GetN(int k, double e, bool isPrint) {
+    const int DEFAULT_PRINT_PERIOD = 100;
+    const int MIN_PRINT_PERIOD = DEFAULT_PRINT_PERIOD;
+    const int MAX_PRINT_PERIOD = 1000;
+
+    int GetN(int k, double e, bool isPrint, int periodPrint = 10) {
 
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -279,33 +283,45 @@ private:
         double x = 1;
 
         double check;
+        bool isPeriodPrint;
+        bool isCheck;
 
         for (int n = 1;;k++, n++)
         {
             x *= 1 - (1 / pow(k, 2));
 
-            if (isPrint) {
+            check = abs(x - 0.5);
+            isCheck = check < e;
+
+            isPeriodPrint = (n % periodPrint == 0 || isCheck);
+
+            if (isPrint && isPeriodPrint) {
                 SetConsoleTextAttribute(handleConsole, White);
                 cout << "1 - " << k << "^-2 = " << x << " - 0.5 = " << x - 0.5;
             }
 
-            check = abs(x - 0.5);
-            if (check < e) {
+            if (isCheck) {
 
                 if (isPrint) {
                     SetConsoleTextAttribute(handleConsole, Green);
-                    cout << " < " << e << endl;
+                    
+                    if(check < e)
+                        cout << " < ";
+                    else if (check == e)
+                        cout << " = ";
+                        
+                    cout << e << endl;
                 }
 
                 result = k;
                 break;
             }
-            else if (isPrint) {
+            else if (isPrint && isPeriodPrint) {
                 SetConsoleTextAttribute(handleConsole, Red);
                 check == e ? cout << " = " : cout << " > ";
             }
 
-            if (isPrint)
+            if (isPrint && isPeriodPrint)
                 cout << e << endl;
         }
 
@@ -340,19 +356,29 @@ public:
         cout << "     # #  = (1 - 1 / k^2) = 0.5" << endl;
         cout << "     # #" << endl << endl;
 
-        MyQuestion myQuestion = *new MyQuestion();
-        bool isShowCalc = myQuestion.isQuestion(myQuestion.QUESTION_SHOW_CALC);
-
         MyInput myInput = *new MyInput();
         
         int k = myInput.InputIntData("Введите значение k [по умолчанию " + to_string(DEFAULT_K) + "]: ", MIN_K, MAX_K, DEFAULT_K);
         double e = myInput.InputData("Введите точность вычислений [по умолчанию " + to_string(DEFAULT_E) + "]: ", MIN_E, MAX_E, DEFAULT_E);
 
+        MyQuestion myQuestion = *new MyQuestion();
+        bool isShowCalc = myQuestion.isQuestion(myQuestion.QUESTION_SHOW_CALC);
+
+        int printPeriod = DEFAULT_PRINT_PERIOD;
+
+        if(isShowCalc)
+            printPeriod = myInput.InputIntData("Введите переодичность вывода промежуточных результатов [по умолчанию " + to_string(DEFAULT_PRINT_PERIOD) + "]: ", MIN_PRINT_PERIOD, MAX_PRINT_PERIOD, DEFAULT_PRINT_PERIOD);
+
         cout << "\nИсходные данные:" << endl;
         PrintInfo("k:", to_string(k));
         PrintInfo("Точность вычислений:", to_string(e));
 
-        PrintInfo("\nНужно взять:", to_string(GetN(k, e, isShowCalc)), "сомножителей");
+        if(isShowCalc)
+            PrintInfo("Переодичность вывода промежуточных результатов:", to_string(printPeriod));
+
+        cout << endl;
+
+        PrintInfo("\nНужно взять:", to_string(GetN(k, e, isShowCalc, printPeriod)), "сомножителей");
 
     }
 };
