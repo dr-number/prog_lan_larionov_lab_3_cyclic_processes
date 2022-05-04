@@ -263,21 +263,51 @@ public:
 
 class Task16 {
 private:
-    const int DEFAULT_E = -5;
+    const double DEFAULT_E = 0.00001;
+    const double MIN_E = 0.000000001;
+    const double MAX_E = 0.999999999;
 
-    int GetN(double e) {
+    const int DEFAULT_K = 2;
+    const int MIN_K = DEFAULT_K;
+    const int MAX_K = 10000;
 
-        double x;
-        int n = 1;
+    int GetN(int k, double e, bool isPrint) {
 
-        do
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+        int result = k - 1;
+        double x = 1;
+
+        double check;
+
+        for (int n = 1;;k++, n++)
         {
-            x *= 1 - (1 / pow(n, 2));
-                
-        } while (abs(x - 0.5 >= e));
+            x *= 1 - (1 / pow(k, 2));
 
-       return n;
+            SetConsoleTextAttribute(handleConsole, White);
+            cout << "1 - " << k << "^-2 = " << x << " - 0.5 = " << x - 0.5;
+
+            check = fabs(x - 0.5); //abs
+            if (check < e) {
+
+                SetConsoleTextAttribute(handleConsole, Green);
+                cout << " < ";
+
+                result = k - 1;
+                break;
+            }
+            else {
+                SetConsoleTextAttribute(handleConsole, Red);
+                check == e ? cout << " = " : cout << " > ";
+            }
+
+            cout << e << endl;
+        }
+
+        return result;
     }
+
+
 public:
     void Init() {
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
